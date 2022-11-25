@@ -1,2 +1,18 @@
 # surreal.scala
-Scala client for SurrealDB
+
+An example application built from the [ce3.g8 template](https://github.com/typelevel/ce3.g8).
+
+This is the start of an attempt to make a parser for SurrealQL and a client that 
+can communicate with SurrealDB via the HTTP interface. Very much a WIP.
+
+## Run application
+
+```shell
+sbt run
+```
+
+## Run tests
+
+```shell
+sbt test
+```
