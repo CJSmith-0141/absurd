@@ -21,13 +21,14 @@ object Main extends IOApp.Simple {
             Method.POST,
             uri = uri"http://localhost:8000/sql",
             headers = Headers(
-              "NS"            -> "tazato",
+              "NS"            -> "baby",
               "DB"            -> "tazato",
               "Accept"        -> "application/json",
               "Authorization" -> ("Basic " ++ BasicCredentials("root", "root").token)
             )
           ).withEntity[String](
-            Info.infoStatement(Keywords.TABLE, Some("person")).getOrElse("")
+            Define.render(Define.NAMESPACE("baby"))
+              ++ Info.render(Info.NAMESPACE)
           )
         )
         .use {

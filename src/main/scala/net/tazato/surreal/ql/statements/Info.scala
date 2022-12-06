@@ -2,21 +2,23 @@ package net.tazato.surreal.ql.statements
 
 import cats.implicits._
 import net.tazato.surreal.ql._
+import net.tazato.surreal.ql.types._
 
-object Info:
-  def infoStatement(q: Keywords, a: Option[String] = None): Either[Throwable, String] = {
-    import Keywords._
-    val infoStart: String = s"${Keywords.INFO.value} ${Keywords.FOR.value}"
-    (q, a) match {
-      case (KV | NS | NAMESPACE | DB | DATABASE, None) =>
-        Right(s"$infoStart ${q.value};")
-      case (SCOPE | TABLE, Some(a)) =>
-        Right(s"$infoStart ${q.value} ${a};")
-      case (_, _) =>
-        Left(
-          new Throwable(
-            "Something is wrong with your INFO statement. See https://surrealdb.com/docs/surrealql/statements/info"
-          )
-        )
-    }
-  }
+enum Info(val info: String, val ident: Option[String]):
+  case KV               extends Info("KV", None)
+  case NS               extends Info("NS", None)
+  case NAMESPACE        extends Info("NAMESPACE", None)
+  case DB               extends Info("DB", None)
+  case DATABASE         extends Info("DATABASE", None)
+  case SCOPE(x: String) extends Info("SCOPE", Some(x))
+  case TABLE(x: String) extends Info("TABLE", Some(x))
+
+object Info extends Render[Info]:
+  import Info._
+  override def render(x: Info): String =
+    x match
+      case KV | NS | NAMESPACE | DB | DATABASE =>
+        s"INFO FOR ${x.info};"
+      case Info.SCOPE(_) | Info.TABLE(_) =>
+        s"INFO FOR ${x.info} ${x.ident.get};"
+end Info
