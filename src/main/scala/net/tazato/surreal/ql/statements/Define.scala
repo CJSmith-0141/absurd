@@ -82,19 +82,31 @@ object Define extends Render[Define]:
       `then`: String
   ) extends Define
       with Render[EVENT]:
-    override def render(x: EVENT): String = ""
+    override def render(x: EVENT): String =
+      s"EVENT ${x.name} ON ${x.what} WHEN ${x.when} THEN ${x.`then`}"
   end EVENT
 
   case class FIELD(
       name: String,
       what: String,
-      kind: Option[String],
-      value: Option[String],
-      assert: Option[String],
-      permissions: String
+      kind: Option[String] = None,
+      value: Option[String] = None,
+      assert: Option[String] = None,
+      permissions: Option[String] = None // TODO permissions needs to be a sub statement
   ) extends Define
       with Render[FIELD]:
-    override def render(x: FIELD): String = ""
+    override def render(x: FIELD): String =
+      val p: String = x.permissions match
+        case Some(y) => y
+        case None    => "PERMISSIONS FULL"
+
+      List[Option[String]](
+        s"FIELD $name ON $what".some,
+        x.kind.map(y => s"TYPE $y"),
+        x.value.map(y => s"VALUE $y"),
+        x.assert.map(y => s"ASSERT $y"),
+        p.some
+      ).flatten.mkString(" ")
   end FIELD
 
   case class INDEX(
@@ -104,7 +116,12 @@ object Define extends Render[Define]:
       uniq: Boolean
   ) extends Define
       with Render[INDEX]:
-    override def render(x: INDEX): String = ""
+    override def render(x: INDEX): String =
+      val u: Option[String] = if (x.uniq) Some("UNIQUE") else None
+      List[Option[String]](
+        s"INDEX ${x.name} ON ${x.what} FIELDS ${x.cols}".some,
+        u
+      ).flatten.mkString(" ")
   end INDEX
 
   override def render(x: Define): String =

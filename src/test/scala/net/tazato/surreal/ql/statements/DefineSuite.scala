@@ -48,9 +48,26 @@ class DefineSuite extends FunSuite:
     assert(expected == rendered)
   }
 
-  test("DEFINE TABLE with simple name, no schema works") {
+  test("DEFINE TABLE with simple name, no schema works TODO fix permissions") {
     val expected = "DEFINE TABLE taz SCHEMALESS PERMISSIONS FULL;"
     val rendered = Define.render(TABLE("taz"))
-    println(rendered)
+    assert(expected == rendered)
+  }
+
+  test("DEFINE EVENT works") {
+    val expected = "DEFINE EVENT taz ON kitchen WHEN needed THEN dinner;"
+    val rendered = Define.render(EVENT("taz", "kitchen", "needed", "dinner"))
+    assert(expected == rendered)
+  }
+
+  test("DEFINE FIELD works TODO fix permissions") {
+    val expected = "DEFINE FIELD taz ON kitchen TYPE float VALUE 0.0 PERMISSIONS FULL;"
+    val rendered = Define.render(FIELD("taz", "kitchen", kind = Some("float"), value = Some("0.0")))
+    assert(expected == rendered)
+  }
+
+  test("DEFINE INDEX works") {
+    val expected = "DEFINE INDEX taz ON kitchen FIELDS fork, knife UNIQUE;"
+    val rendered = Define.render(INDEX("taz", "kitchen", cols = "fork, knife", uniq = true))
     assert(expected == rendered)
   }
