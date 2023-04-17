@@ -1,7 +1,7 @@
 package net.tazato.surreal.ql.statements
 
-import cats.implicits._
-import net.tazato.surreal.ql.types._
+import cats.implicits.*
+import net.tazato.surreal.ql.types.*
 
 sealed trait Define
 

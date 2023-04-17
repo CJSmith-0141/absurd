@@ -1,16 +1,17 @@
 package net.tazato
 
-import cats.implicits._
-import cats.effect._
-import org.http4s.ember.client._
-import org.http4s.client._
-import org.http4s.implicits._
-import org.http4s._
-import org.http4s.circe._
+import cats.implicits.*
+import cats.effect.*
+import cats.syntax.all.*
+import org.http4s.ember.client.*
+import org.http4s.client.*
+import org.http4s.implicits.*
+import org.http4s.*
+import org.http4s.circe.*
 import io.circe.Json
-import org.typelevel.ci._
-import net.tazato.surreal.ql._
-import net.tazato.surreal.ql.statements._
+import org.typelevel.ci.*
+import net.tazato.surreal.ql.*
+import net.tazato.surreal.ql.statements.*
 
 object Main extends IOApp.Simple {
   def run: IO[Unit] =

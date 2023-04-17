@@ -1,6 +1,6 @@
 package net.tazato.surreal.ql.types
 
-import cats.implicits._
+import cats.implicits.*
 
 enum Algo(val value: String):
   case EdDSA extends Algo("EDDSA")
