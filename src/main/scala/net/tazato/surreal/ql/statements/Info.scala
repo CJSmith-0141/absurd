@@ -1,8 +1,8 @@
 package net.tazato.surreal.ql.statements
 
-import cats.implicits._
-import net.tazato.surreal.ql._
-import net.tazato.surreal.ql.types._
+import cats.implicits.*
+import net.tazato.surreal.ql.*
+import net.tazato.surreal.ql.types.*
 
 enum Info(val info: String, val ident: Option[String]):
   case KV               extends Info("KV", None)

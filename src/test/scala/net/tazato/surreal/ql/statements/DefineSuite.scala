@@ -2,7 +2,7 @@ package net.tazato.surreal.ql.statements
 
 import munit.FunSuite
 import net.tazato.surreal.ql.statements.Define
-import net.tazato.surreal.ql.types._
+import net.tazato.surreal.ql.types.*
 
 class DefineSuite extends FunSuite:
   import Define._

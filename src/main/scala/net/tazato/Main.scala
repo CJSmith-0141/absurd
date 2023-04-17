@@ -1,18 +1,25 @@
 package net.tazato
 
-import cats.implicits._
-import cats.effect._
-import org.http4s.ember.client._
-import org.http4s.client._
-import org.http4s.implicits._
-import org.http4s._
-import org.http4s.circe._
+import cats.implicits.*
+import cats.effect.*
+import cats.syntax.all.*
+import org.http4s.ember.client.*
+import org.http4s.client.*
+import org.http4s.implicits.*
+import org.http4s.*
+import org.http4s.circe.*
 import io.circe.Json
-import org.typelevel.ci._
-import net.tazato.surreal.ql._
-import net.tazato.surreal.ql.statements._
+import org.typelevel.ci.*
+import net.tazato.surreal.ql.*
+import net.tazato.surreal.ql.statements.*
+import org.typelevel.log4cats.*
+import org.typelevel.log4cats.slf4j.Slf4jFactory
+import org.typelevel.log4cats.slf4j.loggerFactoryforSync
+
+implicit val logging: LoggerFactory[IO] = Slf4jFactory[IO]
 
 object Main extends IOApp.Simple {
+  val logger: SelfAwareStructuredLogger[IO] = LoggerFactory[IO].getLogger
   def run: IO[Unit] =
     EmberClientBuilder.default[IO].build.use { client =>
       val runner = client
@@ -39,7 +46,7 @@ object Main extends IOApp.Simple {
         }
       for
         r <- runner
-        _ = println(r.spaces2)
+        _ <- logger.info("\n" ++ r.spaces2)
       yield ()
     }
 }
