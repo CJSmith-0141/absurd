@@ -6,7 +6,7 @@ This is the start of an attempt to make a parser for SurrealQL and a client that
 can communicate with SurrealDB via the HTTP interface. Very much a WIP.
 
 ## Install SurrealDB
-[Follow this guide](https://surrealdb.com/docs/start/installation)
+[Follow this guide](https://surrealdb.com/docs/installation)
 
 ## Start SurrealDB in permissive mode (just for development!)
 ```shell

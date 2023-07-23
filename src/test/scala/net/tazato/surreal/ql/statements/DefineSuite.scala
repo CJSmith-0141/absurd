@@ -1,10 +1,10 @@
 package net.tazato.surreal.ql.statements
 
-import munit.FunSuite
 import net.tazato.surreal.ql.statements.Define
 import net.tazato.surreal.ql.types.*
+import weaver._
 
-class DefineSuite extends FunSuite:
+object DefineSuite extends FunSuite:
   import Define._
   test("DEFINE NAMESPACE works") {
     val expected = "DEFINE NAMESPACE tazato;"

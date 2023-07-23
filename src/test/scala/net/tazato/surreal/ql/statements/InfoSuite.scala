@@ -1,9 +1,9 @@
 package net.tazato.surreal.ql.statements
 
-import munit.FunSuite
 import net.tazato.surreal.ql.statements.Info
+import weaver._
 
-class InfoSuite extends FunSuite:
+object InfoSuite extends FunSuite:
   test("Info Statement: no argument keywords return correct statements") {
     import Info._
     val expected = "INFO FOR NS;"

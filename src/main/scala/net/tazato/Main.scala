@@ -16,9 +16,8 @@ import org.typelevel.log4cats.*
 import org.typelevel.log4cats.slf4j.Slf4jFactory
 import org.typelevel.log4cats.slf4j.loggerFactoryforSync
 
-implicit val logging: LoggerFactory[IO] = Slf4jFactory[IO]
-
 object Main extends IOApp.Simple {
+  implicit val logging: LoggerFactory[IO]   = Slf4jFactory[IO]
   val logger: SelfAwareStructuredLogger[IO] = LoggerFactory[IO].getLogger
   def run: IO[Unit] =
     EmberClientBuilder.default[IO].build.use { client =>
@@ -33,7 +32,7 @@ object Main extends IOApp.Simple {
               "Accept"        -> "application/json",
               "Authorization" -> ("Basic " ++ BasicCredentials("root", "root").token)
             )
-          ).withEntity[String](
+          ).withEntity(
             Define.render(Define.NAMESPACE("baby"))
               ++ Info.render(Info.NAMESPACE)
           )
