@@ -21,7 +21,12 @@ object Select extends Render[Select]:
   case class Alias(als: String):
     lazy val render = s"AS ${this.als}"
   case class Target(trg: String)
-  case class Cond(cond: String)
+  case class Cond(test: String, continuation: Option[String] = None):
+    lazy val render =
+      continuation match
+        case Some(c) => s"$c ${this.test}"
+        case None    => this.test
+
   case class Limit(lmt: String)
   case class Start(strt: String)
   case class Duration(dur: String)
@@ -61,12 +66,16 @@ object Select extends Render[Select]:
   private def render(fields: Seq[Field]) =
     fields.map(_.render).mkString(", ")
 
+  private def render(conds: Seq[Cond])(implicit d: DummyImplicit, c: DummyImplicit) =
+    conds.map(_.render).mkString(", ")
+
   override def render(x: Select): String = x match
     case x: SELECT =>
       val statementOrderSeq = Seq[Option[String]](
         (if (x.isValueMode) Some("VALUE") else None),
         render(x.selectFields).some,
         ("FROM " ++ render(x.targets)).some,
+        x.whereClause.map(y => s"WHERE ${render(y)}"),
         x.splitBy.map(y => s"SPLIT AT ${y.fs}"),
         x.groupBy.map(y => s"GROUP BY ${render(y)}"),
         x.orderClause.map(_.render),
