@@ -33,8 +33,8 @@ object Main extends IOApp.Simple {
               "Authorization" -> ("Basic " ++ BasicCredentials("root", "root").token)
             )
           ).withEntity(
-            Define.render(Define.NAMESPACE("baby"))
-              ++ Info.render(Info.NAMESPACE)
+            Define.NAMESPACE("baby").render
+              ++ Info.NAMESPACE.render
           )
         )
         .use {

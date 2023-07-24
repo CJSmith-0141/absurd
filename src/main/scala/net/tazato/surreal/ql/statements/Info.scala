@@ -12,6 +12,7 @@ enum Info(val info: String, val ident: Option[String]):
   case DATABASE         extends Info("DATABASE", None)
   case SCOPE(x: String) extends Info("SCOPE", Some(x))
   case TABLE(x: String) extends Info("TABLE", Some(x))
+  lazy val render: String = Info.render(this)
 
 object Info extends Render[Info]:
   import Info._
@@ -21,4 +22,3 @@ object Info extends Render[Info]:
         s"INFO FOR ${x.info};"
       case Info.SCOPE(_) | Info.TABLE(_) =>
         s"INFO FOR ${x.info} ${x.ident.get};"
-end Info
