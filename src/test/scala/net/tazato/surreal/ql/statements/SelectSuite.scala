@@ -1,7 +1,5 @@
 package net.tazato.surreal.ql.statements
 import weaver._
-import fs2.Compiler.Target
-import net.tazato.surreal.ql.statements.Info.render
 
 object SelectSuite extends FunSuite {
   import Select.{Target => Targ, *}

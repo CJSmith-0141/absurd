@@ -1,6 +1,7 @@
 package net.tazato.surreal.ql.statements
 
 import net.tazato.surreal.ql.types.Render
+import net.tazato.surreal.ql.types.LazyRender
 import cats.syntax.all.*
 
 sealed trait Select
@@ -12,17 +13,18 @@ sealed trait Select
  * */
 
 object Select extends Render[Select]:
-  case class Field(fs: String, alias: Option[Alias] = None):
-    lazy val render =
+  case class Field(fs: String, alias: Option[Alias] = None) extends LazyRender:
+    override lazy val render =
       alias match
         case Some(a) => s"${this.fs} ${a.render}"
         case None    => this.fs
 
-  case class Alias(als: String):
-    lazy val render = s"AS ${this.als}"
-  case class Target(trg: String)
-  case class Cond(test: String, continuation: Option[String] = None):
-    lazy val render =
+  case class Alias(als: String) extends LazyRender:
+    override lazy val render = s"AS ${this.als}"
+  case class Target(trg: String) extends LazyRender:
+    override lazy val render = trg
+  case class Cond(test: String, continuation: Option[String] = None) extends LazyRender:
+    override lazy val render =
       continuation match
         case Some(c) => s"$c ${this.test}"
         case None    => this.test
@@ -36,9 +38,9 @@ object Select extends Render[Select]:
       isCollate: Boolean = false,
       isNumeric: Boolean = false,
       isAscending: Boolean = true
-  ):
-    lazy val render =
-      s"ORDER BY ${Select.render(fields)}"
+  ) extends LazyRender:
+    override lazy val render =
+      s"ORDER BY ${LazyRender.renderSeq(fields)}"
         ++ (if (isRand) " RAND()" else "")
         ++ (if (isCollate) " COLLATE" else "")
         ++ (if (isNumeric) " NUMERIC" else "")
@@ -60,31 +62,24 @@ object Select extends Render[Select]:
   ) extends Select:
     lazy val render = Select.render(this)
 
-  private def render(targets: Seq[Target])(implicit d: DummyImplicit) =
-    targets.map(_.trg).mkString(", ")
-
-  private def render(fields: Seq[Field]) =
-    fields.map(_.render).mkString(", ")
-
-  private def render(conds: Seq[Cond])(implicit d: DummyImplicit, c: DummyImplicit) =
-    conds.map(_.render).mkString(", ")
-
-  override def render(x: Select): String = x match
-    case x: SELECT =>
-      val statementOrderSeq = Seq[Option[String]](
-        (if (x.isValueMode) Some("VALUE") else None),
-        render(x.selectFields).some,
-        ("FROM " ++ render(x.targets)).some,
-        x.whereClause.map(y => s"WHERE ${render(y)}"),
-        x.splitBy.map(y => s"SPLIT AT ${y.fs}"),
-        x.groupBy.map(y => s"GROUP BY ${render(y)}"),
-        x.orderClause.map(_.render),
-        x.limitClause.map(y => s"LIMIT BY ${y.lmt}"),
-        x.startClause.map(y => s"START AT ${y.strt}"),
-        x.fetchClause.map(y => s"FETCH ${render(y)}"),
-        x.timeoutClause.map(y => s"TIMEOUT ${y.dur}"),
-        if (x.isParallel) Some("PARALLEL") else None
-      )
-      "SELECT " ++ statementOrderSeq.flatten.mkString(" ") ++ ";"
+  override def render(x: Select): String =
+    import LazyRender.renderSeq
+    x match
+      case x: SELECT =>
+        val statementOrderSeq = Seq[Option[String]](
+          (if (x.isValueMode) Some("VALUE") else None),
+          renderSeq(x.selectFields).some,
+          ("FROM " ++ renderSeq(x.targets)).some,
+          x.whereClause.map(y => s"WHERE ${renderSeq(y)}"),
+          x.splitBy.map(y => s"SPLIT AT ${y.fs}"),
+          x.groupBy.map(y => s"GROUP BY ${renderSeq(y)}"),
+          x.orderClause.map(_.render),
+          x.limitClause.map(y => s"LIMIT BY ${y.lmt}"),
+          x.startClause.map(y => s"START AT ${y.strt}"),
+          x.fetchClause.map(y => s"FETCH ${renderSeq(y)}"),
+          x.timeoutClause.map(y => s"TIMEOUT ${y.dur}"),
+          if (x.isParallel) Some("PARALLEL") else None
+        )
+        "SELECT " ++ statementOrderSeq.flatten.mkString(" ") ++ ";"
 
 end Select

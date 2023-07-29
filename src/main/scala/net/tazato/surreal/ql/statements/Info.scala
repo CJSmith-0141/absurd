@@ -1,6 +1,5 @@
 package net.tazato.surreal.ql.statements
 
-import cats.implicits.*
 import net.tazato.surreal.ql.*
 import net.tazato.surreal.ql.types.*
 
