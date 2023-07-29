@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.statements
+package net.tazato.absurd.ql.statements
 
-import weaver._
+import weaver.*
 
 object InfoSuite extends FunSuite:
   // two extra spaces to align with the rest of the ql test suites
   test("Info   Statement: render works, no argument keywords") {
-    import Info._
+    import net.tazato.absurd.ql.statements.Info.*
     val expected = "INFO FOR NS;"
     val rendered = Info.render(NS)
     expect.same(expected, rendered)
   }
 
   test("Info   Statement: render works, single argument keywords") {
-    import Info._
+    import net.tazato.absurd.ql.statements.Info.*
     val expected = "INFO FOR TABLE person;"
     val rendered = Info.render(TABLE("person"))
     expect.same(expected, rendered)

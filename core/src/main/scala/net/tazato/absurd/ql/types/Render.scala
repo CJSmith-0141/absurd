@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.types
+package net.tazato.absurd.ql.types
 
 /** Renders (makes into a string) the type
   * @tparam any

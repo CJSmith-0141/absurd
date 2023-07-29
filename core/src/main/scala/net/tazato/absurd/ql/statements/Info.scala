@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.statements
+package net.tazato.absurd.ql.statements
 
-import net.tazato.surreal.ql.*
-import net.tazato.surreal.ql.types.*
+import net.tazato.absurd.ql.*
+import net.tazato.absurd.ql.types.*
 
 enum Info(val info: String, val ident: Option[String]):
   case KV               extends Info("KV", None)
@@ -30,7 +30,7 @@ enum Info(val info: String, val ident: Option[String]):
   lazy val render: String = Info.render(this)
 
 object Info extends Render[Info]:
-  import Info._
+  import Info.*
   override def render(x: Info): String =
     x match
       case KV | NS | NAMESPACE | DB | DATABASE =>

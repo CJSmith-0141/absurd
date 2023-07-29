@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.statements
+package net.tazato.absurd.ql.statements
 
 import cats.implicits.*
-import net.tazato.surreal.ql.types.*
+import net.tazato.absurd.ql.types.{Algo, Base, Render}
 
 sealed trait Define
 

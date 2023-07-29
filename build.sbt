@@ -42,7 +42,7 @@ lazy val core = crossProject(JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("core"))
   .settings(
-    name := "surreal",
+    name := "absurd",
     libraryDependencies ++= commonLibraryDependencies,
     Compile / doc / scalacOptions ++= Seq("-groups")
   )
@@ -53,7 +53,7 @@ lazy val tests = crossProject(JVMPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    name := "surreal-tests",
+    name := "absurd-tests",
     libraryDependencies ++=
       commonLibraryDependencies ++ Seq(
         "com.disneystreaming" %% "weaver-cats" % "0.8.3" % Test

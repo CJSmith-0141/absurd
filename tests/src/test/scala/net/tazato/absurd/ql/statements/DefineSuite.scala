@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.statements
+package net.tazato.absurd.ql.statements
 
-import net.tazato.surreal.ql.types.*
-import weaver._
+import net.tazato.absurd.ql.types.{Algo, Base}
+import weaver.*
 
 object DefineSuite extends FunSuite:
   test("Define Statement: render works, namespace") {
