@@ -1,6 +1,21 @@
+/*
+ * Copyright 2023 Connor James Smith
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.tazato.surreal.ql.statements
 
-import net.tazato.surreal.ql.statements.Define
 import net.tazato.surreal.ql.types.*
 import weaver._
 
@@ -48,7 +63,8 @@ object DefineSuite extends FunSuite:
 
   test("Define Statement: render works, token") {
     val expected = "DEFINE TOKEN tazato ON NS TYPE RS256 VALUE fakevaluerofl;"
-    val rendered = Define.TOKEN("tazato", Base.NS, Algo.Rs256, "fakevaluerofl").render
+    val rendered =
+      Define.TOKEN("tazato", Base.NS, Algo.Rs256, "fakevaluerofl").render
     expect.same(expected, rendered)
   }
 
@@ -64,7 +80,9 @@ object DefineSuite extends FunSuite:
     expect.same(expected, rendered)
   }
 
-  test("Define Statement: render works, table without schema TODO fix permissions") {
+  test(
+    "Define Statement: render works, table without schema TODO fix permissions"
+  ) {
     val expected = "DEFINE TABLE taz SCHEMALESS PERMISSIONS FULL;"
     val rendered = Define.TABLE("taz").render
     expect.same(expected, rendered)
@@ -77,13 +95,17 @@ object DefineSuite extends FunSuite:
   }
 
   test("Define Statement: render works, field TODO fix permissions") {
-    val expected = "DEFINE FIELD taz ON kitchen TYPE float VALUE 0.0 PERMISSIONS FULL;"
-    val rendered = Define.FIELD("taz", "kitchen", kind = Some("float"), value = Some("0.0")).render
+    val expected =
+      "DEFINE FIELD taz ON kitchen TYPE float VALUE 0.0 PERMISSIONS FULL;"
+    val rendered = Define
+      .FIELD("taz", "kitchen", kind = Some("float"), value = Some("0.0"))
+      .render
     expect.same(expected, rendered)
   }
 
   test("Define Statement: render works, index") {
     val expected = "DEFINE INDEX taz ON kitchen FIELDS fork, knife UNIQUE;"
-    val rendered = Define.INDEX("taz", "kitchen", cols = "fork, knife", uniq = true).render
+    val rendered =
+      Define.INDEX("taz", "kitchen", cols = "fork, knife", uniq = true).render
     expect.same(expected, rendered)
   }

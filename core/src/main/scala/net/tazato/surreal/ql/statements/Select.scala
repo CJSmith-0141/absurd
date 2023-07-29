@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 Connor James Smith
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.tazato.surreal.ql.statements
 
 import net.tazato.surreal.ql.types.Render
@@ -23,7 +39,8 @@ object Select extends Render[Select]:
     override lazy val render = s"AS ${this.als}"
   case class Target(trg: String) extends LazyRender:
     override lazy val render = trg
-  case class Cond(test: String, continuation: Option[String] = None) extends LazyRender:
+  case class Cond(test: String, continuation: Option[String] = None)
+      extends LazyRender:
     override lazy val render =
       continuation match
         case Some(c) => s"$c ${this.test}"
