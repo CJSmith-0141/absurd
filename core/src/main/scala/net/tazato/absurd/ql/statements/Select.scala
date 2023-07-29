@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.statements
+package net.tazato.absurd.ql.statements
 
-import net.tazato.surreal.ql.types.Render
-import net.tazato.surreal.ql.types.LazyRender
+import net.tazato.absurd.ql.types.Render
 import cats.syntax.all.*
+import net.tazato.absurd.ql.types.LazyRender
 
 sealed trait Select
 

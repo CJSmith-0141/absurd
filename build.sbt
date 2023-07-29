@@ -10,22 +10,15 @@ ThisBuild / developers ++= List(
 ThisBuild / scalaVersion    := "3.3.0"
 ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
-ThisBuild / tlCiDocCheck    := false // Something is broken with docs
-
-ThisBuild / Compile / doc / autoAPIMappings := true
 
 val Http4sVersion     = "1.0.0-M40"
 val catsEffectVersion = "3.5.1"
 val log4CatsVersion   = "2.6.0"
 
 val commonLibraryDependencies = Seq(
-  // "core" module - IO, IOApp, schedulers
-  // This pulls in the kernel and std modules automatically.
-  "org.typelevel" %% "cats-core"   % "2.9.0",
-  "org.typelevel" %% "cats-effect" % catsEffectVersion,
-  // concurrency abstractions and primitives (Concurrent, Sync, Async etc.)
-  "org.typelevel" %% "cats-effect-kernel" % catsEffectVersion,
-  // standard "effect" library (Queues, Console, Random etc.)
+  "org.typelevel" %% "cats-core"           % "2.9.0",
+  "org.typelevel" %% "cats-effect"         % catsEffectVersion,
+  "org.typelevel" %% "cats-effect-kernel"  % catsEffectVersion,
   "org.typelevel" %% "cats-effect-std"     % catsEffectVersion,
   "org.typelevel" %% "log4cats-core"       % log4CatsVersion,
   "org.typelevel" %% "log4cats-slf4j"      % log4CatsVersion,
@@ -42,9 +35,8 @@ lazy val core = crossProject(JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("core"))
   .settings(
-    name := "surreal",
-    libraryDependencies ++= commonLibraryDependencies,
-    Compile / doc / scalacOptions ++= Seq("-groups")
+    name := "absurd",
+    libraryDependencies ++= commonLibraryDependencies
   )
 
 lazy val tests = crossProject(JVMPlatform)
@@ -53,7 +45,7 @@ lazy val tests = crossProject(JVMPlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(core)
   .settings(
-    name := "surreal-tests",
+    name := "absurd-tests",
     libraryDependencies ++=
       commonLibraryDependencies ++ Seq(
         "com.disneystreaming" %% "weaver-cats" % "0.8.3" % Test

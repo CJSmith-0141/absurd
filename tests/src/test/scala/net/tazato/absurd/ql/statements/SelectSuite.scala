@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.statements
+package net.tazato.absurd.ql.statements
+
 import weaver._
 
 object SelectSuite extends FunSuite {

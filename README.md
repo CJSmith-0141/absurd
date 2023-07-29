@@ -1,9 +1,7 @@
-# surreal.scala
+# absurd
 
-An example application built from the [ce3.g8 template](https://github.com/typelevel/ce3.g8).
-
-This is the start of an attempt to make a parser for SurrealQL and a client that 
-can communicate with SurrealDB via the HTTP interface. Very much a WIP.
+This is the start of an attempt to make a parser for [SurrealQL](https://surrealdb.com/docs/surrealql) and a client that 
+can communicate with [SurrealDB](https://surrealdb.com) via the HTTP interface. Very much a WIP.
 
 ## Install SurrealDB
 [Follow this guide](https://surrealdb.com/docs/installation)

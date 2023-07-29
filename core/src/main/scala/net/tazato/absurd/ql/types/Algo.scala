@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.tazato.surreal.ql.types
+package net.tazato.absurd.ql.types
 
 import cats.syntax.all.*
 
