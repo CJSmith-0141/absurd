@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 Connor James Smith
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.tazato.surreal.ql.statements
 
 import cats.implicits.*
@@ -12,7 +28,8 @@ object Define extends Render[Define]:
   case class DATABASE(name: String) extends Define:
     lazy val render = Define.render(this)
 
-  case class FUNCTION(name: String, args: Seq[(String, String)], block: String) extends Define:
+  case class FUNCTION(name: String, args: Seq[(String, String)], block: String)
+      extends Define:
     lazy val render = Define.render(this)
 
   case class LOGIN(
@@ -43,7 +60,8 @@ object Define extends Render[Define]:
       drop: Boolean = false,
       full: Boolean = false,
       view: Option[String] = None,
-      permissions: Option[String] = None // TODO permissions needs to be a sub-statement
+      permissions: Option[String] =
+        None // TODO permissions needs to be a sub-statement
   ) extends Define:
     lazy val render = Define.render(this)
 
@@ -61,7 +79,8 @@ object Define extends Render[Define]:
       kind: Option[String] = None,
       value: Option[String] = None,
       assert: Option[String] = None,
-      permissions: Option[String] = None // TODO permissions needs to be a sub statement
+      permissions: Option[String] =
+        None // TODO permissions needs to be a sub statement
   ) extends Define:
     lazy val render = Define.render(this)
 
@@ -85,8 +104,9 @@ object Define extends Render[Define]:
           .mkString(", ")
         s"FUNCTION fn::$name($argsString) $block"
       }
-      case LOGIN(n, b, h)    => s"LOGIN $n ON ${b.value} PASSHASH $h"
-      case TOKEN(n, b, k, c) => s"TOKEN $n ON ${b.value} TYPE ${k.value} VALUE $c"
+      case LOGIN(n, b, h) => s"LOGIN $n ON ${b.value} PASSHASH $h"
+      case TOKEN(n, b, k, c) =>
+        s"TOKEN $n ON ${b.value} TYPE ${k.value} VALUE $c"
       case SCOPE(n, session, signup, signin) =>
         List(
           s"SCOPE $n".some,
