@@ -10,9 +10,6 @@ ThisBuild / developers ++= List(
 ThisBuild / scalaVersion    := "3.3.0"
 ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
-ThisBuild / tlCiDocCheck    := false // Something is broken with docs
-
-ThisBuild / Compile / doc / autoAPIMappings := true
 
 val Http4sVersion     = "1.0.0-M40"
 val catsEffectVersion = "3.5.1"
