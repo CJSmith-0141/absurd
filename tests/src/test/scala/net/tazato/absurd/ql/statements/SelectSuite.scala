@@ -16,15 +16,16 @@
 
 package net.tazato.absurd.ql.statements
 
+import net.tazato.absurd.ql.types.{Target => Trg, *}
+import net.tazato.absurd.ql.statements.Select.SELECT
 import weaver._
 
 object SelectSuite extends FunSuite {
-  import Select.{Target => Targ, *}
   test("Select Statement: render works, simple case") {
     val expected = """SELECT * FROM person;"""
     val rendered = SELECT(
       selectFields = Seq(Field("*")),
-      targets = Seq(Targ("person"))
+      targets = Seq(Trg("person"))
     ).render
     expect.same(expected, rendered)
   }
@@ -34,7 +35,7 @@ object SelectSuite extends FunSuite {
     val rendered = Select
       .SELECT(
         selectFields = Seq(Field("name"), Field("address"), Field("email")),
-        targets = Seq(Targ("person:tobie"))
+        targets = Seq(Trg("person:tobie"))
       )
       .render
     expect.same(expected, rendered)
@@ -46,7 +47,7 @@ object SelectSuite extends FunSuite {
       .SELECT(
         selectFields =
           Seq(Field("name", Some(Alias("user_name"))), Field("address")),
-        targets = Seq(Targ("person"))
+        targets = Seq(Trg("person"))
       )
       .render
     expect.same(expected, rendered)
@@ -57,7 +58,7 @@ object SelectSuite extends FunSuite {
     val rendered =
       SELECT(
         selectFields = Seq(Field("*")),
-        targets = Seq(Targ("user")),
+        targets = Seq(Trg("user")),
         splitBy = Some(Field("emails"))
       ).render
     expect.same(expected, rendered)
@@ -67,7 +68,7 @@ object SelectSuite extends FunSuite {
     val expected = """SELECT * FROM article WHERE published = true;"""
     val rendered = SELECT(
       selectFields = Seq(Field("*")),
-      targets = Seq(Targ("article")),
+      targets = Seq(Trg("article")),
       whereClause = Some(Seq(Cond("published = true")))
     ).render
     expect.same(expected, rendered)

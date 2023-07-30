@@ -17,7 +17,8 @@
 package net.tazato.absurd.ql.statements
 
 import cats.implicits.*
-import net.tazato.absurd.ql.types.{Algo, Base, Render}
+import net.tazato.absurd.ql.traits.Render
+import net.tazato.absurd.ql.types.{Algo, Base}
 
 sealed trait Define
 

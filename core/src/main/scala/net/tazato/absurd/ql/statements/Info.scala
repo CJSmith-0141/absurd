@@ -17,7 +17,7 @@
 package net.tazato.absurd.ql.statements
 
 import net.tazato.absurd.ql.*
-import net.tazato.absurd.ql.types.*
+import net.tazato.absurd.ql.traits.Render
 
 enum Info(val info: String, val ident: Option[String]):
   case KV               extends Info("KV", None)
@@ -35,5 +35,5 @@ object Info extends Render[Info]:
     x match
       case KV | NS | NAMESPACE | DB | DATABASE =>
         s"INFO FOR ${x.info};"
-      case Info.SCOPE(_) | Info.TABLE(_) =>
+      case SCOPE(_) | TABLE(_) =>
         s"INFO FOR ${x.info} ${x.ident.get};"

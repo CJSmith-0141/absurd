@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package net.tazato.absurd.ql.types
+package net.tazato.absurd.ql.traits
 
-/** LazyRender is like render but is expressed as a value
+/** Renders (makes into a string) the type
+  * @tparam any
+  *   type
   */
-trait LazyRender:
-  lazy val render: String
+trait Render[-A]:
 
-object LazyRender:
-
-  /** @param lrl
-    *   seqence of LazyRender
+  /** @param x
+    *   the thing to render
     * @return
-    *   String formed by rendering all LazyRender in Seq
+    *   the rendered thing
     */
-  def renderSeq(lrl: Seq[LazyRender]): String =
-    lrl.map(_.render).mkString(", ")
+  def render(x: A): String
