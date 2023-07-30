@@ -19,14 +19,14 @@ package net.tazato.absurd.ql.statements
 import net.tazato.absurd.ql.*
 import net.tazato.absurd.ql.traits.Render
 
-enum Info(val info: String, val ident: Option[String]):
-  case KV               extends Info("KV", None)
-  case NS               extends Info("NS", None)
-  case NAMESPACE        extends Info("NAMESPACE", None)
-  case DB               extends Info("DB", None)
-  case DATABASE         extends Info("DATABASE", None)
-  case SCOPE(x: String) extends Info("SCOPE", Some(x))
-  case TABLE(x: String) extends Info("TABLE", Some(x))
+enum Info(val id: String):
+  case KV                      extends Info("KV")
+  case NS                      extends Info("NS")
+  case NAMESPACE               extends Info("NAMESPACE")
+  case DB                      extends Info("DB")
+  case DATABASE                extends Info("DATABASE")
+  case SCOPE(val name: String) extends Info("SCOPE")
+  case TABLE(val name: String) extends Info("TABLE")
   lazy val render: String = Info.render(this)
 
 object Info extends Render[Info]:
@@ -34,6 +34,8 @@ object Info extends Render[Info]:
   override def render(x: Info): String =
     x match
       case KV | NS | NAMESPACE | DB | DATABASE =>
-        s"INFO FOR ${x.info};"
-      case SCOPE(_) | TABLE(_) =>
-        s"INFO FOR ${x.info} ${x.ident.get};"
+        s"INFO FOR ${x.id};"
+      case SCOPE(y) =>
+        s"INFO FOR ${x.id} $y;"
+      case TABLE(y) =>
+        s"INFO FOR ${x.id} $y;"

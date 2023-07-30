@@ -64,7 +64,8 @@ object Select extends Render[Select]:
     import net.tazato.absurd.ql.traits.LazyRender.renderSeq
     x match
       case x: SELECT =>
-        val statementOrderSeq = Seq[Option[String]](
+        Seq[Option[String]](
+          "SELECT".some,
           if (x.isValueMode) Some("VALUE") else None,
           renderSeq(x.selectFields).some,
           ("FROM " ++ renderSeq(x.targets)).some,
@@ -77,7 +78,6 @@ object Select extends Render[Select]:
           x.fetchClause.map(y => s"FETCH ${renderSeq(y)}"),
           x.timeoutClause.map(y => s"TIMEOUT ${y.dur}"),
           if (x.isParallel) Some("PARALLEL") else None
-        )
-        "SELECT " ++ statementOrderSeq.flatten.mkString(" ") ++ ";"
+        ).flatten.mkString(" ") ++ ";"
 
 end Select

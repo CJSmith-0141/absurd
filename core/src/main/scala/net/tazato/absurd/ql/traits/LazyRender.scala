@@ -30,3 +30,8 @@ object LazyRender:
     */
   def renderSeq(lrl: Seq[LazyRender]): String =
     lrl.map(_.render).mkString(", ")
+
+  def renderSeqOption(lrl: Seq[LazyRender]): Option[String] =
+    lrl match
+      case x if x.isEmpty => None
+      case _              => Some(renderSeq(lrl))

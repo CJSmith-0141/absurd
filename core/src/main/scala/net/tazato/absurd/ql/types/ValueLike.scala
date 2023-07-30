@@ -18,5 +18,10 @@ package net.tazato.absurd.ql.types
 
 import net.tazato.absurd.ql.traits.LazyRender
 
-case class Alias(als: String) extends LazyRender:
-  override lazy val render = s"AS ${this.als}"
+enum ValueLike(val value: String) extends LazyRender:
+  case Stringish(x: String) extends ValueLike(x)
+  case Jsonish(x: String)   extends ValueLike(x)
+  override lazy val render: String =
+    this match
+      case Stringish(x) => s"'$x'"
+      case Jsonish(x)   => s"$x"
