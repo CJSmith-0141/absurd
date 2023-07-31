@@ -16,17 +16,7 @@
 
 package net.tazato.absurd.ql.types
 
-/** LazyRender is like render but is expressed as a value
-  */
-trait LazyRender:
-  lazy val render: String
+import net.tazato.absurd.ql.traits.LazyRender
 
-object LazyRender:
-
-  /** @param lrl
-    *   seqence of LazyRender
-    * @return
-    *   String formed by rendering all LazyRender in Seq
-    */
-  def renderSeq(lrl: Seq[LazyRender]): String =
-    lrl.map(_.render).mkString(", ")
+case class Alias(als: String) extends LazyRender:
+  override lazy val render = s"AS ${this.als}"

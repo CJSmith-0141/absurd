@@ -16,15 +16,11 @@
 
 package net.tazato.absurd.ql.types
 
-/** Renders (makes into a string) the type
-  * @tparam any
-  *   type
-  */
-trait Render[-A]:
+import net.tazato.absurd.ql.traits.LazyRender
 
-  /** @param x
-    *   the thing to render
-    * @return
-    *   the rendered thing
-    */
-  def render(x: A): String
+case class Cond(test: String, continuation: Option[String] = None)
+    extends LazyRender:
+  override lazy val render =
+    continuation match
+      case Some(c) => s"$c ${this.test}"
+      case None    => this.test

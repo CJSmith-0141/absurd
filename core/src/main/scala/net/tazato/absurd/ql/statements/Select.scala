@@ -16,39 +16,20 @@
 
 package net.tazato.absurd.ql.statements
 
-import net.tazato.absurd.ql.types.Render
 import cats.syntax.all.*
-import net.tazato.absurd.ql.types.LazyRender
+import net.tazato.absurd.ql.traits.{LazyRender, Render}
+import net.tazato.absurd.ql.types.*
 
 sealed trait Select
 
-/*
- * See https://surrealdb.com/docs/surrealql/statements/select
- *
- * For documentation on the structure of a select statement in surrealql
- * */
-
+/** See https://surrealdb.com/docs/surrealql/statements/select
+  *
+  * For documentation on the structure of a select statement in surrealql
+  */
 object Select extends Render[Select]:
-  case class Field(fs: String, alias: Option[Alias] = None) extends LazyRender:
-    override lazy val render =
-      alias match
-        case Some(a) => s"${this.fs} ${a.render}"
-        case None    => this.fs
-
-  case class Alias(als: String) extends LazyRender:
-    override lazy val render = s"AS ${this.als}"
-  case class Target(trg: String) extends LazyRender:
-    override lazy val render = trg
-  case class Cond(test: String, continuation: Option[String] = None)
-      extends LazyRender:
-    override lazy val render =
-      continuation match
-        case Some(c) => s"$c ${this.test}"
-        case None    => this.test
 
   case class Limit(lmt: String)
   case class Start(strt: String)
-  case class Duration(dur: String)
   case class OrderClause(
       fields: Seq[Field],
       isRand: Boolean = false,
@@ -56,7 +37,7 @@ object Select extends Render[Select]:
       isNumeric: Boolean = false,
       isAscending: Boolean = true
   ) extends LazyRender:
-    override lazy val render =
+    override lazy val render: String =
       s"ORDER BY ${LazyRender.renderSeq(fields)}"
         ++ (if (isRand) " RAND()" else "")
         ++ (if (isCollate) " COLLATE" else "")
@@ -77,14 +58,15 @@ object Select extends Render[Select]:
       timeoutClause: Option[Duration] = None,
       isParallel: Boolean = false
   ) extends Select:
-    lazy val render = Select.render(this)
+    lazy val render: String = Select.render(this)
 
   override def render(x: Select): String =
-    import LazyRender.renderSeq
+    import net.tazato.absurd.ql.traits.LazyRender.renderSeq
     x match
       case x: SELECT =>
-        val statementOrderSeq = Seq[Option[String]](
-          (if (x.isValueMode) Some("VALUE") else None),
+        Seq[Option[String]](
+          "SELECT".some,
+          if (x.isValueMode) Some("VALUE") else None,
           renderSeq(x.selectFields).some,
           ("FROM " ++ renderSeq(x.targets)).some,
           x.whereClause.map(y => s"WHERE ${renderSeq(y)}"),
@@ -96,7 +78,6 @@ object Select extends Render[Select]:
           x.fetchClause.map(y => s"FETCH ${renderSeq(y)}"),
           x.timeoutClause.map(y => s"TIMEOUT ${y.dur}"),
           if (x.isParallel) Some("PARALLEL") else None
-        )
-        "SELECT " ++ statementOrderSeq.flatten.mkString(" ") ++ ";"
+        ).flatten.mkString(" ") ++ ";"
 
 end Select

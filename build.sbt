@@ -36,7 +36,8 @@ lazy val core = crossProject(JVMPlatform)
   .in(file("core"))
   .settings(
     name := "absurd",
-    libraryDependencies ++= commonLibraryDependencies
+    libraryDependencies ++= commonLibraryDependencies,
+    Compile / scalacOptions ++= Seq("-explain")
   )
 
 lazy val tests = crossProject(JVMPlatform)
