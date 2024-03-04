@@ -26,7 +26,7 @@ val commonLibraryDependencies = Seq(
   "org.http4s"    %% "http4s-ember-client" % Http4sVersion,
   "org.http4s"    %% "http4s-circe"        % Http4sVersion,
   "org.http4s"    %% "http4s-dsl"          % Http4sVersion,
-  "ch.qos.logback" % "logback-classic"     % "1.4.14"
+  "ch.qos.logback" % "logback-classic"     % "1.5.3"
 )
 
 lazy val root = tlCrossRootProject.aggregate(core, tests)
