@@ -12,7 +12,7 @@ ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
 
 val Http4sVersion     = "1.0.0-M40"
-val catsEffectVersion = "3.5.3"
+val catsEffectVersion = "3.5.4"
 val log4CatsVersion   = "2.6.0"
 
 val commonLibraryDependencies = Seq(
