@@ -16,7 +16,7 @@ val catsEffectVersion = "3.5.4"
 val log4CatsVersion   = "2.6.0"
 
 val commonLibraryDependencies = Seq(
-  "org.typelevel" %% "cats-core"           % "2.10.0",
+  "org.typelevel" %% "cats-core"           % "2.12.0",
   "org.typelevel" %% "cats-effect"         % catsEffectVersion,
   "org.typelevel" %% "cats-effect-kernel"  % catsEffectVersion,
   "org.typelevel" %% "cats-effect-std"     % catsEffectVersion,
