@@ -13,7 +13,7 @@ ThisBuild / tlJdkRelease    := Some(17)
 
 val Http4sVersion     = "1.0.0-M42"
 val catsEffectVersion = "3.5.5"
-val log4CatsVersion   = "2.7.0"
+val log4CatsVersion   = "2.7.1"
 
 val commonLibraryDependencies = Seq(
   "org.typelevel" %% "cats-core"           % "2.12.0",
