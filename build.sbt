@@ -7,16 +7,17 @@ ThisBuild / developers ++= List(
   tlGitHubDev("CJSmith-0141", "CJ Smith")
 )
 
-ThisBuild / scalaVersion    := "3.3.4"
+ThisBuild / scalaVersion    := "3.3.6"
 ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
 
 val Http4sVersion     = "1.0.0-M42"
-val catsEffectVersion = "3.5.5"
-val log4CatsVersion   = "2.7.0"
+
+val catsEffectVersion = "3.5.7"
+val log4CatsVersion   = "2.7.1"
 
 val commonLibraryDependencies = Seq(
-  "org.typelevel" %% "cats-core"           % "2.12.0",
+  "org.typelevel" %% "cats-core"           % "2.13.0",
   "org.typelevel" %% "cats-effect"         % catsEffectVersion,
   "org.typelevel" %% "cats-effect-kernel"  % catsEffectVersion,
   "org.typelevel" %% "cats-effect-std"     % catsEffectVersion,
@@ -26,7 +27,7 @@ val commonLibraryDependencies = Seq(
   "org.http4s"    %% "http4s-ember-client" % Http4sVersion,
   "org.http4s"    %% "http4s-circe"        % Http4sVersion,
   "org.http4s"    %% "http4s-dsl"          % Http4sVersion,
-  "ch.qos.logback" % "logback-classic"     % "1.5.12"
+  "ch.qos.logback" % "logback-classic"     % "1.5.18"
 )
 
 lazy val root = tlCrossRootProject.aggregate(core, tests)
