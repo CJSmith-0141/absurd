@@ -46,7 +46,7 @@ object DefineSuite extends FunSuite:
         |}""".stripMargin
       )
       .render
-    assert(expected == rendered)
+    expect(expected == rendered)
   }
 
   test("Define Statement: render works, scope") {
