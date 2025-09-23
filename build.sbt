@@ -7,7 +7,7 @@ ThisBuild / developers ++= List(
   tlGitHubDev("CJSmith-0141", "CJ Smith")
 )
 
-ThisBuild / scalaVersion    := "3.3.4"
+ThisBuild / scalaVersion    := "3.3.6"
 ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
 
