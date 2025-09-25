@@ -32,7 +32,7 @@ import org.typelevel.log4cats.slf4j.Slf4jFactory
 object Main extends IOApp.Simple {
   implicit val logging: LoggerFactory[IO]   = Slf4jFactory.create[IO]
   val logger: SelfAwareStructuredLogger[IO] = LoggerFactory[IO].getLogger
-  def run: IO[Unit] =
+  def run: IO[Unit]                         =
     EmberClientBuilder.default[IO].build.use { client =>
       val runner = client
         .run(
@@ -40,9 +40,9 @@ object Main extends IOApp.Simple {
             Method.POST,
             uri = uri"http://localhost:8000/sql",
             headers = Headers(
-              "NS"     -> "baby",
-              "DB"     -> "tazato",
-              "Accept" -> "application/json",
+              "NS"            -> "baby",
+              "DB"            -> "tazato",
+              "Accept"        -> "application/json",
               "Authorization" -> ("Basic " ++ BasicCredentials(
                 "root",
                 "root"

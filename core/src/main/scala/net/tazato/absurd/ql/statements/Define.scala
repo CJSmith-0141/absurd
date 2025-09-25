@@ -95,8 +95,8 @@ object Define extends Render[Define]:
 
   override def render(x: Define): String = {
     val last = x match {
-      case NAMESPACE(name) => s"NAMESPACE $name"
-      case DATABASE(name)  => s"DATABASE $name"
+      case NAMESPACE(name)             => s"NAMESPACE $name"
+      case DATABASE(name)              => s"DATABASE $name"
       case FUNCTION(name, args, block) => {
         val argsString = args
           .map { case (n, k) =>
@@ -105,7 +105,7 @@ object Define extends Render[Define]:
           .mkString(", ")
         s"FUNCTION fn::$name($argsString) $block"
       }
-      case LOGIN(n, b, h) => s"LOGIN $n ON ${b.value} PASSHASH $h"
+      case LOGIN(n, b, h)    => s"LOGIN $n ON ${b.value} PASSHASH $h"
       case TOKEN(n, b, k, c) =>
         s"TOKEN $n ON ${b.value} TYPE ${k.value} VALUE $c"
       case SCOPE(n, session, signup, signin) =>
