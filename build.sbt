@@ -50,7 +50,7 @@ lazy val tests = crossProject(JVMPlatform)
     name := "absurd-tests",
     libraryDependencies ++=
       commonLibraryDependencies ++ Seq(
-        "org.typelevel" %% "weaver-cats" % "0.10.1" % Test
+        "org.typelevel" %% "weaver-cats" % "0.11.2" % Test
       ),
     testFrameworks += new TestFramework("weaver.framework.CatsEffect")
   )
