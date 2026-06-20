@@ -12,9 +12,9 @@ ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
 
 val Http4sVersion     = "1.0.0-M46"
-val catsEffectVersion = "3.6.3"
+val catsEffectVersion = "3.7.0"
 
-val log4CatsVersion = "2.7.1"
+val log4CatsVersion = "2.8.0"
 
 val commonLibraryDependencies = Seq(
   "org.typelevel" %% "cats-core"           % "2.13.0",
@@ -27,7 +27,7 @@ val commonLibraryDependencies = Seq(
   "org.http4s"    %% "http4s-ember-client" % Http4sVersion,
   "org.http4s"    %% "http4s-circe"        % Http4sVersion,
   "org.http4s"    %% "http4s-dsl"          % Http4sVersion,
-  "ch.qos.logback" % "logback-classic"     % "1.5.19"
+  "ch.qos.logback" % "logback-classic"     % "1.5.34"
 )
 
 lazy val root = tlCrossRootProject.aggregate(core, tests)
@@ -50,7 +50,7 @@ lazy val tests = crossProject(JVMPlatform)
     name := "absurd-tests",
     libraryDependencies ++=
       commonLibraryDependencies ++ Seq(
-        "org.typelevel" %% "weaver-cats" % "0.10.1" % Test
+        "org.typelevel" %% "weaver-cats" % "0.13.0" % Test
       ),
     testFrameworks += new TestFramework("weaver.framework.CatsEffect")
   )
