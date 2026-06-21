@@ -30,7 +30,6 @@ enum Info(val id: String):
   lazy val render: String = Info.render(this)
 
 object Info extends Render[Info]:
-  import Info.*
   override def render(x: Info): String =
     x match
       case KV | NS | NAMESPACE | DB | DATABASE =>

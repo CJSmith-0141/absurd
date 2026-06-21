@@ -23,7 +23,6 @@ import org.http4s.*
 import org.http4s.circe.*
 import io.circe.Json
 import net.tazato.absurd.ql.statements.{Define, Info}
-import net.tazato.absurd.ql.*
 import org.typelevel.log4cats.*
 import org.typelevel.log4cats.slf4j.Slf4jFactory
 

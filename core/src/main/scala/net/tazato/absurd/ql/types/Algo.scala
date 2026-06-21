@@ -16,8 +16,6 @@
 
 package net.tazato.absurd.ql.types
 
-import cats.syntax.all.*
-
 /** Simple enum, stringified reps of surrealdb supported encryption algorithms.
   */
 enum Algo(val value: String):
