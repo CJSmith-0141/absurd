@@ -11,7 +11,7 @@ ThisBuild / scalaVersion    := "3.3.8"
 ThisBuild / tlFatalWarnings := true
 ThisBuild / tlJdkRelease    := Some(17)
 
-val Http4sVersion     = "1.0.0-M46"
+val Http4sVersion     = "1.0.0-M49"
 val catsEffectVersion = "3.7.0"
 
 val log4CatsVersion = "2.8.0"
